@@ -1,0 +1,35 @@
+package com.example.libraryapi.enums;
+
+public enum GenreEnum {
+
+    SCIENCE_FICTION,
+    SATIRE,
+    DRAMA,
+    ACTION_AND_ADVENTURE,
+    ROMANCE,
+    MYSTERY,
+    HORROR,
+    SELF_HELP,
+    GUIDE,
+    TRAVEL,
+    CHILDREN,
+    RELIGION_SPIRITUALITY_AND_NEW_AGE,
+    SCIENCE,
+    HISTORY,
+    MATH,
+    ANTHOLOGY,
+    POETRY,
+    ENCYCLOPEDIAS,
+    DICTIONARIES,
+    COMICS,
+    ART,
+    COOKBOOKS,
+    DIARIES,
+    JOURNALS,
+    PRAYER_BOOKS,
+    SERIES,
+    TRILOGY,
+    BIOGRAPHIES,
+    AUTOBIOGRAPHIES,
+    FANTASY
+}

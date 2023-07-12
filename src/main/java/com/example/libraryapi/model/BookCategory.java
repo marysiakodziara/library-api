@@ -1,6 +1,7 @@
 package com.example.libraryapi.model;
 
 import com.example.libraryapi.enums.GenreEnum;
+import com.example.libraryapi.enums.MainGenreEnum;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,16 +22,15 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
-class BookCategory {
+public class BookCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private GenreEnum literaryGenre;
+    private MainGenreEnum mainGenre;
 
     @ManyToMany(mappedBy = "categories")
     private Set<Book> books = new HashSet<>();
 
-    @ManyToOne
-    private MainBookCategory mainBookCategory;
 }

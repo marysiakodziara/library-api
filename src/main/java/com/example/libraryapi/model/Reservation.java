@@ -26,9 +26,9 @@ public class Reservation {
     @Id
     @GeneratedValue(generator = "uuid")
     private UUID id;
-    private LocalDate borrowDate;
-    private LocalDate returnDate;
-    private boolean returned;
+    private LocalDate endOfReservation;
+    private boolean borrowed;
+    private boolean canceled;
 
     @ManyToOne
     private User userId;

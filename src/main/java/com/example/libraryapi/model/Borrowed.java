@@ -29,7 +29,7 @@ public class Borrowed {
     @GeneratedValue(generator = "uuid")
     private UUID id;
     private LocalDate borrowDate;
-    private LocalDate returnDate;
+    private LocalDate endOfBorrowDate;
     private boolean returned;
 
     @ManyToMany

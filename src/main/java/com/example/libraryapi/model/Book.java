@@ -1,12 +1,7 @@
 package com.example.libraryapi.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import com.example.libraryapi.enums.GenreEnum;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -32,18 +27,17 @@ public class Book {
     private String title;
     private Long isbn;
     private String author;
+    private int numberOfBooks;
 
-    @ManyToMany
-    @JoinTable(name="book_category",
-            joinColumns = @JoinColumn(name="book_id"),
-            inverseJoinColumns = @JoinColumn(name="category_id"))
-    private Set<BookCategory> categories = new HashSet<>();
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    private Set<GenreEnum> categories;
 
     @ManyToMany
     @JoinTable(name="book_reservation",
             joinColumns = @JoinColumn(name="book_id"),
             inverseJoinColumns = @JoinColumn(name="reservation_id"))
-    private List<Reservation> reservations = new ArrayList<>();
+    private List<Reservation> reservations;
 
     @ManyToMany(mappedBy = "books")
     private List<Borrowed> borrowedList;

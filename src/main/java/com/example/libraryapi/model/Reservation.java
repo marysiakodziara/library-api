@@ -3,6 +3,7 @@ package com.example.libraryapi.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import java.time.LocalDate;
@@ -31,7 +32,8 @@ public class Reservation {
     private boolean canceled;
 
     @ManyToOne
-    private User userId;
+    @JoinColumn(name = "client_id")
+    private Client client;
 
     @ManyToMany(mappedBy = "reservations")
     private List<Book> books = new ArrayList<>();

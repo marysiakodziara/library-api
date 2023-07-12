@@ -39,5 +39,6 @@ public class Borrowed {
     private List<Book> books = new ArrayList<>();
 
     @ManyToOne
-    private User user;
+    @JoinColumn(name = "client_id")
+    private Client client;
 }

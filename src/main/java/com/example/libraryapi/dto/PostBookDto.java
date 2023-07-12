@@ -1,7 +1,7 @@
 package com.example.libraryapi.dto;
 
 import com.example.libraryapi.enums.GenreEnum;
-import com.example.libraryapi.enums.MainGenreEnum;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,9 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookCategoryDto {
-
-    private Integer id;
-    private GenreEnum literaryGenre;
-    private MainGenreEnum mainGenre;
+public class PostBookDto {
+    private Long isbn;
+    private String title;
+    private String author;
+    private Set<GenreEnum> categories;
+    private int numberOfBooks;
 }

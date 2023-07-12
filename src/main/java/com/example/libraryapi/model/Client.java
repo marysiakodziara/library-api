@@ -4,9 +4,7 @@ package com.example.libraryapi.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import lombok.EqualsAndHashCode;
@@ -21,7 +19,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
-public class User {
+public class Client {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -31,10 +29,8 @@ public class User {
     private String emailAddress;
 
     @OneToMany
-    @JoinColumn(name = "user_id")
-    private Set<Reservation> reservations = new HashSet<>();
+    private Set<Reservation> reservations;
 
     @OneToMany
-    @JoinColumn(name = "user_id")
-    private Set<Borrowed> borrowedBooks = new HashSet<>();
+    private Set<Borrowed> borrowedBooks;
 }

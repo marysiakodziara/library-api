@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 public class BookService {
 
     private final BookRepository bookRepository;
-    //private final BookMapper bookMapper;
 
     public List<BookDto> getAllBooks() {
 

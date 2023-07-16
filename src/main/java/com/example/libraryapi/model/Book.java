@@ -1,6 +1,7 @@
 package com.example.libraryapi.model;
 
 import com.example.libraryapi.enums.GenreEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,14 +17,13 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     private String title;
     private Long isbn;
     private String author;
@@ -33,12 +33,6 @@ public class Book {
     @Enumerated(EnumType.STRING)
     private Set<GenreEnum> categories;
 
-    @ManyToMany
-    @JoinTable(name="book_reservation",
-            joinColumns = @JoinColumn(name="book_id"),
-            inverseJoinColumns = @JoinColumn(name="reservation_id"))
-    private List<Reservation> reservations;
-
-    @ManyToMany(mappedBy = "books")
-    private List<Borrowed> borrowedList;
+    @OneToMany(mappedBy = "book")
+    private List<ReservationItem> reservationItems = new ArrayList<>();
 }

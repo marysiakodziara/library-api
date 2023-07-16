@@ -16,7 +16,6 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 public class Client {
@@ -30,7 +29,4 @@ public class Client {
 
     @OneToMany
     private Set<Reservation> reservations;
-
-    @OneToMany
-    private Set<Borrowed> borrowedBooks;
 }

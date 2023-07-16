@@ -12,8 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookDto {
+    private Long id;
     private Long isbn;
     private String title;
     private String author;
     private Set<GenreEnum> categories;
+    private int numberOfBooks;
 }

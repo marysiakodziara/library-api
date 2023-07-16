@@ -1,12 +1,12 @@
 package com.example.libraryapi.service;
 
 import com.example.libraryapi.dto.BookDto;
-import com.example.libraryapi.dto.PostBookDto;
 import com.example.libraryapi.mapper.BookMapper;
 import com.example.libraryapi.model.Book;
+import com.example.libraryapi.model.Reservation;
 import com.example.libraryapi.repository.BookRepository;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import lombok.RequiredArgsConstructor;
@@ -17,22 +17,28 @@ import org.springframework.stereotype.Service;
 public class BookService {
 
     private final BookRepository bookRepository;
-    private final BookMapper bookMapper;
+    //private final BookMapper bookMapper;
 
     public List<BookDto> getAllBooks() {
 
         Iterable<Book> books = bookRepository.findAll();
         return StreamSupport.stream(books.spliterator(), false)
-                .map(bookMapper::map)
+                .map(BookMapper.INSTANCE::map)
                 .collect(Collectors.toList());
     }
 
-    public void addBook(PostBookDto postBookDto) {
+    public void addBook(BookDto bookDto) {
 
-        if (bookRepository.findByIsbn(postBookDto.getIsbn()).isPresent()) {
-            throw new RuntimeException("Book with isbn " + postBookDto.getIsbn() + " already exists");
+        if (bookRepository.findByIsbn(bookDto.getIsbn()).isPresent()) {
+            throw new RuntimeException("Book with isbn " + bookDto.getIsbn() + " already exists");
         }
 
-        bookRepository.save(bookMapper.map(postBookDto));
+        bookRepository.save(BookMapper.INSTANCE.map(bookDto));
     }
+
+    public Book findByIsbn(Long isbn) {
+        return bookRepository.findByIsbn(isbn).orElse(null);
+    }
+
+
 }

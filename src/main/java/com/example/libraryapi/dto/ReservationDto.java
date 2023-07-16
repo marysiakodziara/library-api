@@ -2,6 +2,7 @@ package com.example.libraryapi.dto;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,10 +14,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ReservationDto {
 
-    private Long id;
-    private List<BookDto> books;
-    private UserDto user;
+    private UUID id;
+    private List<ReservationItemDto> reservationItems;
+    private LocalDate reservationDate;
     private LocalDate endOfReservation;
     private boolean borrowed;
+    private boolean returned;
     private boolean canceled;
 }

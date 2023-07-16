@@ -1,9 +1,7 @@
 package com.example.libraryapi.controller;
 
 import com.example.libraryapi.dto.BookDto;
-import com.example.libraryapi.dto.PostBookDto;
 import com.example.libraryapi.facade.InventoryFacade;
-import com.example.libraryapi.service.BookService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +18,8 @@ public class BookController {
     private final InventoryFacade inventoryFacade;
 
     @PostMapping
-    public void addBook(@RequestBody PostBookDto postBookDto) {
-        inventoryFacade.addBook(postBookDto);
+    public void addBook(@RequestBody BookDto bookDto) {
+        inventoryFacade.addBook(bookDto);
     }
 
     @GetMapping

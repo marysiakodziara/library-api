@@ -1,8 +1,13 @@
 package com.example.libraryapi.controller;
 
 import com.example.libraryapi.dto.BookDto;
+import com.example.libraryapi.enums.GenreEnum;
+import com.example.libraryapi.enums.MainGenreEnum;
 import com.example.libraryapi.facade.InventoryFacade;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,5 +30,10 @@ public class BookController {
     @GetMapping
     public List<BookDto> getAllBooks() {
         return inventoryFacade.getAllBooks();
+    }
+
+    @GetMapping("/categories")
+    public Map<MainGenreEnum, List<GenreEnum>> getAllCategories() {
+        return inventoryFacade.getAllCategories();
     }
 }

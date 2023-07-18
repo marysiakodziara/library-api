@@ -11,7 +11,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Getter
@@ -26,6 +25,8 @@ public class Client {
     private String firstName;
     private String lastName;
     private String emailAddress;
+    private String phoneNumber;
+    private String address;
 
     @OneToMany
     private Set<Reservation> reservations;

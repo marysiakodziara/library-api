@@ -1,7 +1,6 @@
 package com.example.libraryapi.service;
 
 import com.example.libraryapi.dto.ReservationDto;
-import com.example.libraryapi.dto.ReservationItemDto;
 import com.example.libraryapi.mapper.ReservationMapper;
 import com.example.libraryapi.model.Reservation;
 import com.example.libraryapi.model.ReservationItem;
@@ -28,7 +27,7 @@ public class ReservationService {
 
 
 
-    public List<ReservationDto> getAllReservations() {
+    public List<ReservationDto> getAllRecordsFromReservation() {
         return reservationRepository.findAll()
                 .stream()
                 .map(reservationMapper::map)
@@ -42,6 +41,8 @@ public class ReservationService {
             Reservation reservation = reservationMapper.map(reservationDto, null);
             reservation.addReservationItem();
             reservationRepository.save(reservation);
+        } else {
+            throw new IllegalStateException("Book is not available");
         }
     }
 
@@ -58,4 +59,5 @@ public class ReservationService {
                     return reservationItemDto.getBook().getNumberOfBooks() - numberOfReservedBooks >= reservationItemDto.getQuantity();
                 });
     }
+
 }

@@ -2,9 +2,9 @@ package com.example.libraryapi.controller;
 
 import com.example.libraryapi.dto.ReservationDto;
 import com.example.libraryapi.facade.ReservationFacade;
-import com.example.libraryapi.model.Book;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,8 +19,8 @@ public class ReservationController {
     private final ReservationFacade reservationFacade;
 
     @PostMapping
-    public void addReservation(@RequestBody ReservationDto reservationDto) {
-        reservationFacade.addReservation(reservationDto);
+    public ResponseEntity<String> addReservation(@RequestBody ReservationDto reservationDto) {
+        return reservationFacade.addReservation(reservationDto);
     }
 
     @GetMapping

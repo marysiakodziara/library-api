@@ -4,8 +4,6 @@ import com.example.libraryapi.dto.BookDto;
 import com.example.libraryapi.enums.GenreEnum;
 import com.example.libraryapi.enums.MainGenreEnum;
 import com.example.libraryapi.facade.InventoryFacade;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;

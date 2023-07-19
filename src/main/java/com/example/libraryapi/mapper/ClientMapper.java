@@ -24,7 +24,7 @@ public interface ClientMapper {
     )
     public Client map(ClientDto clientDto);
 
-    @InheritInverseConfiguration
+    @InheritInverseConfiguration(name = "map")
     public ClientDto map(Client client);
 
     @Mappings(

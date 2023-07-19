@@ -21,8 +21,8 @@ public class InventoryFacade {
         bookService.addBook(bookDto);
     }
 
-    public List<BookDto> getAllBooks() {
-        return bookService.getAllBooks();
+    public List<BookDto> getAllBooks(int page, int size, String sortBy) {
+        return bookService.getAllBooks(page, size, sortBy);
     }
 
     public Map<MainGenreEnum, List<GenreEnum>> getAllCategories() {
@@ -35,5 +35,13 @@ public class InventoryFacade {
             genresByMainGenre.get(mainGenre).add(genre);
         }
         return genresByMainGenre;
+    }
+
+    public List<BookDto> getBooksByCategory(List<GenreEnum> categories, int page, int size, String sortBy) {
+        return bookService.getBooksByCategory(categories, page, size, sortBy);
+    }
+
+    public List<BookDto> getBooksContainingPhrase(String phrase, int page, int size, String sortBy) {
+        return bookService.getBooksContainingPhrase(phrase, page, size, sortBy);
     }
 }

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,7 +22,7 @@ public class InventoryFacade {
         bookService.addBook(bookDto);
     }
 
-    public List<BookDto> getAllBooks(int page, int size, String sortBy) {
+    public Page<BookDto> getAllBooks(int page, int size, String sortBy) {
         return bookService.getAllBooks(page, size, sortBy);
     }
 
@@ -37,11 +38,19 @@ public class InventoryFacade {
         return genresByMainGenre;
     }
 
-    public List<BookDto> getBooksByCategory(List<GenreEnum> categories, int page, int size, String sortBy) {
+    public Page<BookDto> getBooksByCategory(List<GenreEnum> categories, int page, int size, String sortBy) {
         return bookService.getBooksByCategory(categories, page, size, sortBy);
     }
 
-    public List<BookDto> getBooksContainingPhrase(String phrase, int page, int size, String sortBy) {
+    public Page<BookDto> getBooksContainingPhrase(String phrase, int page, int size, String sortBy) {
         return bookService.getBooksContainingPhrase(phrase, page, size, sortBy);
+    }
+
+    public BookDto getBookById(Long id) {
+        return bookService.getBookById(id);
+    }
+
+    public Page<BookDto> getRandomBooks(int page, int size, String sortBy) {
+        return bookService.getRandomBooks(page, size, sortBy);
     }
 }

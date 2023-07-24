@@ -28,7 +28,7 @@ public class BookController {
     }
 
     @GetMapping
-    public List<BookDto> getAllBooks(
+    public Page<BookDto> getAllBooks(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "25") int size,
             @RequestParam(defaultValue = "id") String sortBy
@@ -42,22 +42,39 @@ public class BookController {
     }
 
     @GetMapping("/inCategory")
-    public List<BookDto> getBooksByCategory(
+    public Page<BookDto> getBooksByCategory(
             @RequestParam List<GenreEnum> categories,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size,
+            @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "id") String sortBy
     ) {
         return inventoryFacade.getBooksByCategory(categories, page, size, sortBy);
     }
 
     @GetMapping("/filter")
-    public List<BookDto> getBooksContainingPhrase(
+    public Page<BookDto> getBooksContainingPhrase(
             @RequestParam String phrase,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "25") int size,
+            @RequestParam(defaultValue = "3") int size,
             @RequestParam(defaultValue = "id") String sortBy
     ) {
+        System.out.println("phrase = " + phrase);
         return inventoryFacade.getBooksContainingPhrase(phrase, page, size, sortBy);
+    }
+
+    @GetMapping("/id")
+    public BookDto getBookById(
+            @RequestParam Long id
+    ) {
+        return inventoryFacade.getBookById(id);
+    }
+
+    @GetMapping("/random")
+    public Page<BookDto> getBooksFromId(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "id") String sortBy
+    ) {
+        return inventoryFacade.getRandomBooks(page, size, sortBy);
     }
 }

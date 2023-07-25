@@ -18,4 +18,5 @@ public class BookDto {
     private String author;
     private Set<GenreEnum> categories;
     private int numberOfBooks;
+    private int numberOfAvailableBooks;
 }

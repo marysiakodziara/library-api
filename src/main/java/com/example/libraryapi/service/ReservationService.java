@@ -2,6 +2,7 @@ package com.example.libraryapi.service;
 
 import com.example.libraryapi.dto.ReservationDto;
 import com.example.libraryapi.mapper.ReservationMapper;
+import com.example.libraryapi.model.Book;
 import com.example.libraryapi.model.Reservation;
 import com.example.libraryapi.model.ReservationItem;
 import com.example.libraryapi.repository.ReservationItemRepository;
@@ -9,8 +10,13 @@ import com.example.libraryapi.repository.ReservationRepository;
 import jakarta.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,6 +25,7 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final ReservationItemRepository reservationItemRepository;
     private final ReservationMapper reservationMapper;
+    private final CacheManager cacheManager;
 
 
     public ReservationDto getReservation(UUID id) {
@@ -34,6 +41,15 @@ public class ReservationService {
                 .toList();
     }
 
+    @Caching(
+            evict = {
+                    @CacheEvict(value = "books_cache", allEntries = true),
+                    @CacheEvict(value = "book_cache", allEntries = true),
+                    @CacheEvict(value = "books_by_category_cache", allEntries = true),
+                    @CacheEvict(value = "books_by_phrase_cache", allEntries = true),
+                    @CacheEvict(value = "books_by_greater_id_cache", allEntries = true),
+            }
+    )
     @Transactional
     public void addReservation(ReservationDto reservationDto) {
         boolean isBookAvailable = this.areBooksAvailable(reservationDto);

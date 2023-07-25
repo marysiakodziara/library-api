@@ -24,5 +24,27 @@ public interface BookMapper {
             }
     )
     Book map(BookDto bookDto);
+
+    @Mappings(
+            {
+                    @Mapping(target = "isbn", source = "isbn"),
+                    @Mapping(target = "title", source = "title"),
+                    @Mapping(target = "author", source = "author"),
+                    @Mapping(target = "numberOfBooks",  source = "numberOfBooks"),
+                    @Mapping(target = "categories", source = "categories"),
+            }
+    )
     BookDto map(Book book);
+
+    @Mappings(
+            {
+                    @Mapping(target = "isbn", source = "book.isbn"),
+                    @Mapping(target = "title", source = "book.title"),
+                    @Mapping(target = "author", source = "book.author"),
+                    @Mapping(target = "numberOfBooks",  source = "book.numberOfBooks"),
+                    @Mapping(target = "categories", source = "book.categories"),
+                    @Mapping(target = "numberOfAvailableBooks", source = "numberOfAvailableBooks")
+            }
+    )
+    BookDto map(Book book, int numberOfAvailableBooks);
 }

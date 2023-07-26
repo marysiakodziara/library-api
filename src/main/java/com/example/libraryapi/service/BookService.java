@@ -1,5 +1,6 @@
 package com.example.libraryapi.service;
 
+import com.example.libraryapi.dto.AvailableBooksCount;
 import com.example.libraryapi.dto.BookDto;
 import com.example.libraryapi.enums.GenreEnum;
 import com.example.libraryapi.mapper.BookMapper;
@@ -7,10 +8,9 @@ import com.example.libraryapi.model.Book;
 import com.example.libraryapi.model.ReservationItem;
 import com.example.libraryapi.repository.BookRepository;
 import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +27,11 @@ public class BookService {
     public Page<BookDto> getAllBooks(int page, int size, String sortBy) {
         Pageable paging = PageRequest.of(page, size, Sort.by(sortBy));
         Page<Book> pagedResult = bookRepository.findAll(paging);
-        return pagedResult.map(book -> BookMapper.INSTANCE.map(book, getNumberOfAvailableBooks(book)));
+        List<ReservationItem> reservationItems = pagedResult.getContent()
+                .stream()
+                .flatMap(book -> book.getReservationItems().stream()).toList();
+        List<AvailableBooksCount> availableBooksCount = bookRepository.countAvailableBooks(reservationItems);
+        return pagedResult.map(book -> BookMapper.INSTANCE.map(book, book.getNumberOfBooks() - Math.toIntExact(availableBooksCount.stream().filter(item -> Objects.equals(item.getBookId(), book.getId())).map(AvailableBooksCount::getCount).findFirst().orElse(0L))));
     }
 
     public void addBook(BookDto bookDto) {
@@ -42,27 +46,24 @@ public class BookService {
     @Cacheable(value = "book_cache")
     public BookDto getBookById(Long id) {
         Book book = bookRepository.findById(id).orElse(null);
-        return BookMapper.INSTANCE.map(bookRepository.findById(id).orElse(null), getNumberOfAvailableBooks(book));
-    }
-
-    public int getNumberOfAvailableBooks(Book book) {
         if (book == null)
-            return 0;
-        return book.getNumberOfBooks() - (book.getReservationItems().stream().filter(item -> !item.getReservation().isReturned()).map(ReservationItem::getQuantity).toList()).size();
+            return null;
+        int availableBooks = book.getNumberOfBooks() - (book.getReservationItems().stream().filter(item -> !item.isReturned()).map(ReservationItem::getQuantity).toList()).size();
+        return BookMapper.INSTANCE.map(book, availableBooks);
     }
 
     @Cacheable(value = "books_by_category_cache")
     public Page<BookDto> getBooksByCategory(List<GenreEnum> categories, int page, int size, String sortBy) {
         Pageable paging = PageRequest.of(page, size, Sort.by(sortBy));
         Page<Book> pagedResult = bookRepository.findByCategoriesIn(categories, paging);
-        return pagedResult.map(book -> BookMapper.INSTANCE.map(book, getNumberOfAvailableBooks(book)));
+        return mapWithNumberOfAvailableBooks(pagedResult);
     }
 
     @Cacheable(value = "books_by_phrase_cache")
     public Page<BookDto> getBooksContainingPhrase(String phrase, int page, int size, String sortBy) {
         Pageable paging = PageRequest.of(page, size, Sort.by(sortBy));
         Page<Book> pagedResult = bookRepository.findByTitleContainingIgnoreCaseOrAuthorContainingIgnoreCase(phrase, phrase, paging);
-        return pagedResult.map(book -> BookMapper.INSTANCE.map(book, getNumberOfAvailableBooks(book)));
+        return mapWithNumberOfAvailableBooks(pagedResult);
     }
 
     public Page<BookDto> getRandomBooks(int page, int size, String sortBy) {
@@ -72,7 +73,14 @@ public class BookService {
 
     @Cacheable(value = "books_by_greater_id_cache", key = "#id")
     public Page<BookDto> getByIdGreaterThanEqual(Long id, int page, int size, String sortBy) {
-        Page<Book> pagesResult = bookRepository.findByIdGreaterThanEqual(id, PageRequest.of(page, size, Sort.by(sortBy)));
-        return pagesResult.map(book -> BookMapper.INSTANCE.map(book, getNumberOfAvailableBooks(book)));
+        Page<Book> pagedResult = bookRepository.findByIdGreaterThanEqual(id, PageRequest.of(page, size, Sort.by(sortBy)));
+        return mapWithNumberOfAvailableBooks(pagedResult);
+    }
+
+    public Page<BookDto> mapWithNumberOfAvailableBooks(Page<Book> pagedResult) {
+        List<AvailableBooksCount> availableBooksCount = bookRepository.countAvailableBooks(pagedResult.getContent()
+                .stream()
+                .flatMap(book -> book.getReservationItems().stream()).toList());
+        return pagedResult.map(book -> BookMapper.INSTANCE.map(book, book.getNumberOfBooks() - Math.toIntExact(availableBooksCount.stream().filter(item -> Objects.equals(item.getBookId(), book.getId())).map(AvailableBooksCount::getCount).findFirst().orElse(0L))));
     }
 }

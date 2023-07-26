@@ -28,6 +28,7 @@ public interface ReservationItemMapper {
             {
                     @Mapping(target = "book", source = "book"),
                     @Mapping(target = "quantity", source = "quantity"),
+                    @Mapping(target = "returned", source = "returned")
             }
     )
     ReservationItemDto map(ReservationItem reservationItem);

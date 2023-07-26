@@ -29,8 +29,6 @@ public interface ReservationMapper {
             {
                     @Mapping(target = "id",  source = "reservationDto.id"),
                     @Mapping(target = "reservationItems", source = "reservationDto.reservationItems"),
-                    @Mapping(target = "canceled", source = "reservationDto.canceled"),
-                    @Mapping(target = "returned", source = "reservationDto.returned"),
                     @Mapping(target = "borrowed", source = "reservationDto.borrowed"),
                     @Mapping(target = "endOfReservation", source = "reservationDto.endOfReservation"),
                     @Mapping(target = "reservationDate", source = "reservationDto.reservationDate"),
@@ -43,8 +41,6 @@ public interface ReservationMapper {
             {
                     @Mapping(target = "id", source = "id"),
                     @Mapping(target = "reservationItems", source = "reservationItems"),
-                    @Mapping(target = "canceled", source = "canceled"),
-                    @Mapping(target = "returned", source = "returned"),
                     @Mapping(target = "borrowed", source = "borrowed"),
                     @Mapping(target = "endOfReservation", source = "endOfReservation"),
                     @Mapping(target = "reservationDate", source = "reservationDate"),

@@ -30,7 +30,7 @@ public class BookService {
         List<ReservationItem> reservationItems = pagedResult.getContent()
                 .stream()
                 .flatMap(book -> book.getReservationItems().stream()).toList();
-        List<AvailableBooksCount> availableBooksCount = bookRepository.countAvailableBooks(reservationItems);
+        List<AvailableBooksCount> availableBooksCount = bookRepository.countNotReturnedBooks(reservationItems);
         return pagedResult.map(book -> BookMapper.INSTANCE.map(book, book.getNumberOfBooks() - Math.toIntExact(availableBooksCount.stream().filter(item -> Objects.equals(item.getBookId(), book.getId())).map(AvailableBooksCount::getCount).findFirst().orElse(0L))));
     }
 
@@ -48,7 +48,7 @@ public class BookService {
         Book book = bookRepository.findById(id).orElse(null);
         if (book == null)
             return null;
-        int availableBooks = book.getNumberOfBooks() - (book.getReservationItems().stream().filter(item -> !item.isReturned()).map(ReservationItem::getQuantity).toList()).size();
+        int availableBooks = book.getNumberOfBooks() - (book.getReservationItems().stream().filter(item -> !item.isReturned()).map(ReservationItem::getQuantity).reduce(0, Integer::sum));
         return BookMapper.INSTANCE.map(book, availableBooks);
     }
 
@@ -78,7 +78,7 @@ public class BookService {
     }
 
     public Page<BookDto> mapWithNumberOfAvailableBooks(Page<Book> pagedResult) {
-        List<AvailableBooksCount> availableBooksCount = bookRepository.countAvailableBooks(pagedResult.getContent()
+        List<AvailableBooksCount> availableBooksCount = bookRepository.countNotReturnedBooks(pagedResult.getContent()
                 .stream()
                 .flatMap(book -> book.getReservationItems().stream()).toList());
         return pagedResult.map(book -> BookMapper.INSTANCE.map(book, book.getNumberOfBooks() - Math.toIntExact(availableBooksCount.stream().filter(item -> Objects.equals(item.getBookId(), book.getId())).map(AvailableBooksCount::getCount).findFirst().orElse(0L))));

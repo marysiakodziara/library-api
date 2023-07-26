@@ -28,5 +28,5 @@ public interface BookRepository extends JpaRepository<Book, Long> {
         AND ri.returned = false
         GROUP BY ri.book.id
         """)
-    List<AvailableBooksCount> countAvailableBooks(@Param("reservationItems") List<ReservationItem> reservationItems);
+    List<AvailableBooksCount> countNotReturnedBooks(@Param("reservationItems") List<ReservationItem> reservationItems);
 }

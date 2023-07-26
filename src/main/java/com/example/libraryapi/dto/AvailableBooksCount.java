@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReservationItemDto {
+public class AvailableBooksCount {
 
-        private BookDto book;
-        private Integer quantity;
-        private boolean returned;
+    private Long bookId;
+    private Long count;
 }

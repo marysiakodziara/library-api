@@ -19,6 +19,4 @@ public class ReservationDto {
     private LocalDate reservationDate;
     private LocalDate endOfReservation;
     private boolean borrowed;
-    private boolean returned;
-    private boolean canceled;
 }

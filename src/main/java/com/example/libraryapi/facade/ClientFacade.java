@@ -1,7 +1,9 @@
 package com.example.libraryapi.facade;
 
 import com.example.libraryapi.dto.ClientDto;
+import com.example.libraryapi.security.ClientResolver;
 import com.example.libraryapi.service.ClientService;
+import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +17,8 @@ public class ClientFacade {
         clientService.addUser(clientDto);
     }
 
-    public ClientDto getUser(String emailAddress) {
-        return clientService.getUser(emailAddress);
+    public ClientDto getUser() throws IOException {
+        return clientService.getUser(ClientResolver.loggedUserEmailResolver());
     }
 
     public void updateUser(ClientDto clientDto) {

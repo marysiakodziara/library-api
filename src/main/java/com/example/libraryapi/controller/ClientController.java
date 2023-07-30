@@ -2,6 +2,7 @@ package com.example.libraryapi.controller;
 
 import com.example.libraryapi.dto.ClientDto;
 import com.example.libraryapi.facade.ClientFacade;
+import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,7 @@ public class ClientController {
     }
 
     @GetMapping
-    public ClientDto getUser(String emailAddress) {
-        return clientFacade.getUser(emailAddress);
+    public ClientDto getUser() throws IOException {
+        return clientFacade.getUser();
     }
 }

@@ -1,9 +1,7 @@
 package com.example.libraryapi.mapper;
 
-import com.example.libraryapi.dto.BookDto;
 import com.example.libraryapi.dto.ReservationDto;
 import com.example.libraryapi.dto.ReservationItemDto;
-import com.example.libraryapi.model.Book;
 import com.example.libraryapi.model.Client;
 import com.example.libraryapi.model.Reservation;
 import com.example.libraryapi.model.ReservationItem;

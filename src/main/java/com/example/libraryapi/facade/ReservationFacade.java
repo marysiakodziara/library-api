@@ -4,6 +4,7 @@ import com.example.libraryapi.dto.ReservationDto;
 import com.example.libraryapi.service.ReservationService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,10 @@ public class ReservationFacade {
 
     public List<ReservationDto> getAllReservations() {
         return reservationService.getAllRecordsFromReservation();
+    }
+
+    public Page<ReservationDto> getReservationsByUserEmail(String emailAddress, boolean borrowed, int page, int size, String sortBy) {
+        return reservationService.getReservationsByUserEmail(emailAddress, borrowed, page, size, sortBy);
     }
 }
 

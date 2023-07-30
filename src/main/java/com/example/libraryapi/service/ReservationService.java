@@ -12,6 +12,10 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -67,6 +71,13 @@ public class ReservationService {
                             .reduce(0, Integer::sum);
                     return reservationItemDto.getBook().getNumberOfBooks() - numberOfReservedBooks >= reservationItemDto.getQuantity();
                 });
+    }
+
+    public Page<ReservationDto> getReservationsByUserEmail(String emailAddress, boolean borrowed, int page, int size, String sortBy) {
+        Pageable paging = PageRequest.of(page, size, Sort.by(sortBy));
+        return reservationRepository.findByClient_EmailAddressAndBorrowed(emailAddress, borrowed, paging)
+                .map(reservationMapper::map);
+
     }
 
 }

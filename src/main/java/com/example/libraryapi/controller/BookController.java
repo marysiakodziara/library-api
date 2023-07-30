@@ -63,9 +63,7 @@ public class BookController {
     }
 
     @GetMapping("/id")
-    public BookDto getBookById(
-            @RequestParam Long id
-    ) {
+    public BookDto getBookById(@RequestParam Long id) {
         return inventoryFacade.getBookById(id);
     }
 

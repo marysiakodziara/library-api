@@ -28,6 +28,6 @@ public class Client {
     private String phoneNumber;
     private String address;
 
-    @OneToMany
+    @OneToMany(mappedBy = "client")
     private Set<Reservation> reservations;
 }

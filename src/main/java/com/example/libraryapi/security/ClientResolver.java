@@ -6,6 +6,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import java.io.IOException;
 import java.util.Map;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 
@@ -26,5 +27,19 @@ public class ClientResolver {
         String responseBody = response.body().string();
         Map jsonJavaRootObject = new Gson().fromJson(responseBody, Map.class);
         return jsonJavaRootObject.get("email").toString();
+    }
+
+    public static ClientRole resolveClientRole() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication instanceof JwtAuthenticationToken) {
+            String role = ((JwtAuthenticationToken) authentication).getTokenAttributes().get("user/roles").toString();
+            if (role != null) {
+                return switch (role) {
+                    case "[Manager]" -> ClientRole.MANAGER;
+                    default -> ClientRole.CLIENT;
+                };
+            }
+        }
+        return null;
     }
 }

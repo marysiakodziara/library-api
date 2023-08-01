@@ -2,6 +2,7 @@ package com.example.libraryapi.controller;
 
 import com.example.libraryapi.dto.ClientDto;
 import com.example.libraryapi.facade.ClientFacade;
+import com.example.libraryapi.security.ClientRole;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,11 @@ public class ClientController {
 
     @GetMapping
     public ClientDto getUser() throws IOException {
-        return clientFacade.getUser();
+        return clientFacade.getUserDto();
+    }
+
+    @GetMapping("/role")
+    public ClientRole getUserRole() {
+        return clientFacade.getUserRole();
     }
 }

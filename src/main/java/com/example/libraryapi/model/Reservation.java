@@ -29,6 +29,7 @@ public class Reservation {
     private LocalDate reservationDate;
     private LocalDate endOfReservation;
     private boolean borrowed;
+    private boolean canceled;
 
     @ManyToOne
     @JoinColumn(name = "client_id")

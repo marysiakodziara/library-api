@@ -17,8 +17,12 @@ public class ClientService {
         clientRepository.save(clientMapper.map(clientDto));
     }
 
-    public ClientDto getUser(String emailAddress) {
+    public ClientDto getUserDto(String emailAddress) {
         return clientMapper.map(clientRepository.findByEmailAddress(emailAddress));
+    }
+
+    public Client getUser(String emailAddress) {
+        return clientRepository.findByEmailAddress(emailAddress);
     }
 
     public void updateUser(ClientDto clientDto) {

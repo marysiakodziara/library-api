@@ -22,6 +22,10 @@ public class InventoryFacade {
         bookService.addBook(bookDto);
     }
 
+    public void updateBook(BookDto bookDto) {
+        bookService.updateBook(bookDto);
+    }
+
     public Page<BookDto> getAllBooks(int page, int size, String sortBy) {
         return bookService.getAllBooks(page, size, sortBy);
     }
@@ -52,5 +56,9 @@ public class InventoryFacade {
 
     public Page<BookDto> getRandomBooks(int page, int size, String sortBy) {
         return bookService.getRandomBooks(page, size, sortBy);
+    }
+
+    public BookDto getBookByIsbn(Long isbn) {
+        return bookService.getBookByIsbn(isbn);
     }
 }

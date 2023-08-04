@@ -3,14 +3,18 @@ package com.example.libraryapi.service;
 import com.example.libraryapi.dto.AvailableBooksCount;
 import com.example.libraryapi.dto.BookDto;
 import com.example.libraryapi.enums.GenreEnum;
+import com.example.libraryapi.exceptions.ResourceAlreadyExistsException;
 import com.example.libraryapi.mapper.BookMapper;
 import com.example.libraryapi.model.Book;
 import com.example.libraryapi.model.ReservationItem;
 import com.example.libraryapi.repository.BookRepository;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -34,13 +38,40 @@ public class BookService {
         return pagedResult.map(book -> BookMapper.INSTANCE.map(book, book.getNumberOfBooks() - Math.toIntExact(availableBooksCount.stream().filter(item -> Objects.equals(item.getBookId(), book.getId())).map(AvailableBooksCount::getCount).findFirst().orElse(0L))));
     }
 
+    @Caching(
+            evict = {
+                    @CacheEvict(value = "books_cache", allEntries = true),
+                    @CacheEvict(value = "book_cache", allEntries = true),
+                    @CacheEvict(value = "books_by_category_cache", allEntries = true),
+                    @CacheEvict(value = "books_by_phrase_cache", allEntries = true),
+                    @CacheEvict(value = "books_by_greater_id_cache", allEntries = true),
+            }
+    )
     public void addBook(BookDto bookDto) {
 
         if (bookRepository.findByIsbn(bookDto.getIsbn()).isPresent()) {
-            throw new RuntimeException("Book with isbn " + bookDto.getIsbn() + " already exists");
+            throw new ResourceAlreadyExistsException("Book with isbn " + bookDto.getIsbn() + " already exists in database");
         }
 
         bookRepository.save(BookMapper.INSTANCE.map(bookDto));
+    }
+
+    @Caching(
+            evict = {
+                    @CacheEvict(value = "books_cache", allEntries = true),
+                    @CacheEvict(value = "book_cache", allEntries = true),
+                    @CacheEvict(value = "books_by_category_cache", allEntries = true),
+                    @CacheEvict(value = "books_by_phrase_cache", allEntries = true),
+                    @CacheEvict(value = "books_by_greater_id_cache", allEntries = true),
+            }
+    )
+    @Transactional
+    public void updateBook(BookDto bookDto) {
+        Book book = bookRepository.findById(bookDto.getId()).orElse(null);
+        if (book == null)
+            return;
+        book.setNumberOfBooks(bookDto.getNumberOfBooks());
+        book.setAuthor(bookDto.getAuthor());
     }
 
     @Cacheable(value = "book_cache")
@@ -82,5 +113,14 @@ public class BookService {
                 .stream()
                 .flatMap(book -> book.getReservationItems().stream()).toList());
         return pagedResult.map(book -> BookMapper.INSTANCE.map(book, book.getNumberOfBooks() - Math.toIntExact(availableBooksCount.stream().filter(item -> Objects.equals(item.getBookId(), book.getId())).map(AvailableBooksCount::getCount).findFirst().orElse(0L))));
+    }
+
+    @Cacheable(value = "book_by_isbn_cache")
+    public BookDto getBookByIsbn(Long isbn) {
+        Book book = bookRepository.findByIsbn(isbn).orElse(null);
+        if (book == null)
+            return null;
+        int availableBooks = book.getNumberOfBooks() - (book.getReservationItems().stream().filter(item -> !item.isReturned()).map(ReservationItem::getQuantity).reduce(0, Integer::sum));
+        return BookMapper.INSTANCE.map(book, availableBooks);
     }
 }

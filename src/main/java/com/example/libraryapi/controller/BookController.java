@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,11 @@ public class BookController {
     @PostMapping
     public void addBook(@RequestBody BookDto bookDto) {
         inventoryFacade.addBook(bookDto);
+    }
+
+    @PutMapping("updateBook")
+    public void updateBook(@RequestBody BookDto bookDto) {
+        inventoryFacade.updateBook(bookDto);
     }
 
     @GetMapping
@@ -74,5 +80,10 @@ public class BookController {
             @RequestParam(defaultValue = "id") String sortBy
     ) {
         return inventoryFacade.getRandomBooks(page, size, sortBy);
+    }
+
+    @GetMapping("/isbn")
+    public BookDto getBookByIsbn(@RequestParam Long isbn) {
+        return inventoryFacade.getBookByIsbn(isbn);
     }
 }

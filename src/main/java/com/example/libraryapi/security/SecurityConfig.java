@@ -41,6 +41,8 @@ public class SecurityConfig {
             .authenticated()
             .requestMatchers(HttpMethod.PUT, "/api/v1/book/updateBook")
             .authenticated()
+            .requestMatchers("/api/v1/client/byEmail")
+            .authenticated()
             .anyRequest()
             .permitAll()
             )

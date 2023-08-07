@@ -1,10 +1,12 @@
 package com.example.libraryapi.service;
 
 import com.example.libraryapi.dto.ClientDto;
+import com.example.libraryapi.exceptions.ResourceAlreadyExistsException;
 import com.example.libraryapi.mapper.ClientMapper;
 import com.example.libraryapi.model.Client;
 import com.example.libraryapi.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,7 +16,11 @@ public class ClientService {
     private final ClientMapper clientMapper;
 
     public void addUser(ClientDto clientDto) {
-        clientRepository.save(clientMapper.map(clientDto));
+        if (clientRepository.findByEmailAddress(clientDto.getEmailAddress()) != null) {
+            throw new ResourceAlreadyExistsException("Client with email address: " + clientDto.getEmailAddress() + " already exists");
+        } else {
+            clientRepository.save(clientMapper.map(clientDto));
+        }
     }
 
     public ClientDto getUserDto(String emailAddress) {

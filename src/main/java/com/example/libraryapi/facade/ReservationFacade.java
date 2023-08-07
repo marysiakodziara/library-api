@@ -1,7 +1,13 @@
 package com.example.libraryapi.facade;
 
+import com.example.libraryapi.dto.ClientDto;
+import com.example.libraryapi.dto.ExtendedReservationDto;
+import com.example.libraryapi.dto.ExtendedReservationItemDto;
 import com.example.libraryapi.dto.ReservationDto;
+import com.example.libraryapi.exceptions.NotQualifiedException;
+import com.example.libraryapi.exceptions.ResourceAlreadyExistsException;
 import com.example.libraryapi.security.ClientResolver;
+import com.example.libraryapi.security.ClientRole;
 import com.example.libraryapi.service.ReservationService;
 import java.io.IOException;
 import java.util.List;
@@ -21,7 +27,7 @@ public class ReservationFacade {
 
     public ResponseEntity<String> addReservation(ReservationDto reservationDto) {
         try {
-            reservationService.addReservation(reservationDto, clientFacade.getUser());
+            reservationService.addReservation(reservationDto, clientFacade.getClient());
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (IllegalStateException | IOException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -41,7 +47,39 @@ public class ReservationFacade {
     }
 
     public void cancelReservation(UUID reservationId) throws IOException {
-        reservationService.cancelReservation(reservationId, clientFacade.getUser());
+        reservationService.cancelReservation(reservationId, clientFacade.getClient());
+    }
+
+    public void borrowBooks(ClientDto clientDto, ReservationDto reservationDto) {
+        if (ClientRole.MANAGER.equals(clientFacade.getClientRole())) {
+            reservationService.addReservation(reservationDto, clientFacade.getClientByEmail(clientDto.getEmailAddress()));
+        } else {
+            throw new NotQualifiedException("You are not authorized to borrow books");
+        }
+    }
+
+    public Page<ExtendedReservationItemDto> getReservationItems(int page) {
+        return reservationService.getReservationItems(page);
+    }
+
+    public Page<ExtendedReservationItemDto> getReservationItemsByClient(int page, String clientEmail) {
+        return reservationService.getReservationItemsByClient(clientEmail,page);
+    }
+
+    public Page<ExtendedReservationDto> getReservations(int page) {
+        return reservationService.getReservations(page);
+    }
+
+    public Page<ExtendedReservationItemDto> getOverdueReservationItems(int page) {
+        return reservationService.getOverdueReservationItems(page);
+    }
+
+    public void returnBooks(Long reservationItemId) {
+        reservationService.returnBooks(reservationItemId);
+    }
+
+    public void confirmReservation(UUID reservationId) {
+        reservationService.confirmReservation(reservationId);
     }
 }
 

@@ -15,6 +15,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ResourceAlreadyExistsException.class)
     protected ResponseEntity<String> handleResourceAlreadyExists(
             ResourceAlreadyExistsException ex) {
+        System.out.println("ResourceAlreadyExistsException " + ex.getMessage());
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NotQualifiedException.class)
+    protected ResponseEntity<String> handleNotQualified(
+            NotQualifiedException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 }

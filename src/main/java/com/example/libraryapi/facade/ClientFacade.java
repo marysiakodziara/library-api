@@ -15,23 +15,37 @@ public class ClientFacade {
 
     private final ClientService clientService;
 
-    public void addUser(ClientDto clientDto) {
+    public void addClient(ClientDto clientDto) {
         clientService.addUser(clientDto);
     }
 
-    public ClientDto getUserDto() throws IOException {
+    public ClientDto getClientDto() throws IOException {
         return clientService.getUserDto(ClientResolver.loggedUserEmailResolver());
     }
 
-    public Client getUser() throws IOException {
+    public Client getClient() throws IOException {
         return clientService.getUser(ClientResolver.loggedUserEmailResolver());
     }
 
-    public void updateUser(ClientDto clientDto) {
+    public void updateClient(ClientDto clientDto) {
         clientService.updateUser(clientDto);
     }
 
-     public ClientRole getUserRole() {
+     public ClientRole getClientRole() {
         return ClientResolver.resolveClientRole();
+    }
+
+    public ClientDto getClientDtoByEmail(String email) {
+        if (ClientRole.MANAGER.equals(ClientResolver.resolveClientRole())) {
+            return clientService.getUserDto(email);
+        }
+        return null;
+    }
+
+    public Client getClientByEmail(String email) {
+        if (ClientRole.MANAGER.equals(ClientResolver.resolveClientRole())) {
+            return clientService.getUser(email);
+        }
+        return null;
     }
 }

@@ -1,5 +1,9 @@
 package com.example.libraryapi.controller;
 
+import com.example.libraryapi.dto.BorrowRequestDto;
+import com.example.libraryapi.dto.ClientDto;
+import com.example.libraryapi.dto.ExtendedReservationDto;
+import com.example.libraryapi.dto.ExtendedReservationItemDto;
 import com.example.libraryapi.dto.ReservationDto;
 import com.example.libraryapi.facade.ReservationFacade;
 import java.io.IOException;
@@ -57,4 +61,44 @@ public class ReservationController {
         reservationFacade.cancelReservation(reservationId);
     }
 
+    @PostMapping("/borrow")
+    public void borrowBooks(
+            @RequestBody BorrowRequestDto borrowRequestDto) {
+        reservationFacade.borrowBooks(borrowRequestDto.getClientDto(), borrowRequestDto.getReservationDto());
+    }
+
+    @GetMapping("/borrowedItems")
+    public Page<ExtendedReservationItemDto> getReservationsByClient(
+            @RequestParam(defaultValue = "0") int page) {
+        return reservationFacade.getReservationItems(page);
+    }
+
+    @GetMapping("/borrowedItems/forClient")
+    public Page<ExtendedReservationItemDto> getReservationsByClient(
+            @RequestParam String emailAddress,
+            @RequestParam(defaultValue = "0") int page) {
+        return reservationFacade.getReservationItemsByClient(page, emailAddress);
+    }
+
+    @GetMapping("/borrowedItems/overdue")
+    public Page<ExtendedReservationItemDto> getOverdueReservations(
+            @RequestParam(defaultValue = "0") int page) {
+        return reservationFacade.getOverdueReservationItems(page);
+    }
+
+    @GetMapping("/reservedItems")
+    public Page<ExtendedReservationDto> getReservedItems(
+            @RequestParam(defaultValue = "0") int page) {
+        return reservationFacade.getReservations(page);
+    }
+
+    @DeleteMapping("/return")
+    public void returnBooks(@RequestParam Long reservationItemId) {
+        reservationFacade.returnBooks(reservationItemId);
+    }
+
+    @DeleteMapping("/confirmReservation")
+    public void confirmReservation(@RequestParam UUID reservationId) {
+        reservationFacade.confirmReservation(reservationId);
+    }
 }

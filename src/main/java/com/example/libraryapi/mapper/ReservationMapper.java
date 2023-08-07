@@ -1,5 +1,6 @@
 package com.example.libraryapi.mapper;
 
+import com.example.libraryapi.dto.ExtendedReservationDto;
 import com.example.libraryapi.dto.ReservationDto;
 import com.example.libraryapi.dto.ReservationItemDto;
 import com.example.libraryapi.model.Client;
@@ -47,4 +48,17 @@ public interface ReservationMapper {
             }
     )
     ReservationDto map(Reservation reservation);
+
+    @Mappings(
+            {
+                    @Mapping(target = "id", source = "reservation.id"),
+                    @Mapping(target = "reservationItems", source = "reservation.reservationItems"),
+                    @Mapping(target = "borrowed", source = "reservation.borrowed"),
+                    @Mapping(target = "canceled", source = "reservation.canceled"),
+                    @Mapping(target = "endOfReservation", source = "reservation.endOfReservation"),
+                    @Mapping(target = "reservationDate", source = "reservation.reservationDate"),
+                    @Mapping(target = "clientEmail", source = "clientEmail")
+            }
+    )
+    ExtendedReservationDto map(Reservation reservation, String clientEmail);
 }

@@ -61,4 +61,8 @@ public class InventoryFacade {
     public BookDto getBookByIsbn(Long isbn) {
         return bookService.getBookByIsbn(isbn);
     }
+
+    public List<BookDto> getNewArrivals() {
+        return bookService.getNewArrivals();
+    }
 }

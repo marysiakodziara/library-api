@@ -123,4 +123,15 @@ public class BookService {
         int availableBooks = book.getNumberOfBooks() - (book.getReservationItems().stream().filter(item -> !item.isReturned()).map(ReservationItem::getQuantity).reduce(0, Integer::sum));
         return BookMapper.INSTANCE.map(book, availableBooks);
     }
+
+    public List<BookDto> getNewArrivals() {
+        Sort sort = Sort.by("id").descending();
+        Pageable paging = PageRequest.of(0, 12, sort);
+        Page<Book> pagedResult = bookRepository.findAll(paging);
+        List<ReservationItem> reservationItems = pagedResult.getContent()
+                .stream()
+                .flatMap(book -> book.getReservationItems().stream()).toList();
+        List<AvailableBooksCount> availableBooksCount = bookRepository.countNotReturnedBooks(reservationItems);
+        return (pagedResult.map(book -> BookMapper.INSTANCE.map(book, book.getNumberOfBooks() - Math.toIntExact(availableBooksCount.stream().filter(item -> Objects.equals(item.getBookId(), book.getId())).map(AvailableBooksCount::getCount).findFirst().orElse(0L))))).getContent();
+    }
 }

@@ -86,4 +86,9 @@ public class BookController {
     public BookDto getBookByIsbn(@RequestParam Long isbn) {
         return inventoryFacade.getBookByIsbn(isbn);
     }
+
+    @GetMapping("/newArrivals")
+    public List<BookDto> getNewArrivals() {
+        return inventoryFacade.getNewArrivals();
+    }
 }

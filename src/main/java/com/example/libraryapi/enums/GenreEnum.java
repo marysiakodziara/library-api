@@ -64,7 +64,9 @@ public enum GenreEnum {
     @JsonProperty("AUTOBIOGRAPHIES")
     AUTOBIOGRAPHIES(MainGenreEnum.NINTH),
     @JsonProperty("FANTASY")
-    FANTASY(MainGenreEnum.TENTH);
+    FANTASY(MainGenreEnum.TENTH),
+    @JsonProperty("BEST_SELLER")
+    BEST_SELLER(MainGenreEnum.FIRST);
 
     final MainGenreEnum mainGenreEnum;
 

@@ -62,8 +62,8 @@ public class ReservationFacade {
         return reservationService.getReservationItems(page);
     }
 
-    public Page<ExtendedReservationItemDto> getReservationItemsByClient(int page, String clientEmail) {
-        return reservationService.getReservationItemsByClient(clientEmail,page);
+    public Page<ExtendedReservationItemDto> getReservationItemsByClient(int page) throws IOException {
+        return reservationService.getReservationItemsByClient(clientFacade.getClient().getEmailAddress(), page);
     }
 
     public Page<ExtendedReservationDto> getReservations(int page) {

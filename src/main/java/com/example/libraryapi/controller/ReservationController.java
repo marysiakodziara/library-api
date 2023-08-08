@@ -1,7 +1,6 @@
 package com.example.libraryapi.controller;
 
 import com.example.libraryapi.dto.BorrowRequestDto;
-import com.example.libraryapi.dto.ClientDto;
 import com.example.libraryapi.dto.ExtendedReservationDto;
 import com.example.libraryapi.dto.ExtendedReservationItemDto;
 import com.example.libraryapi.dto.ReservationDto;
@@ -68,16 +67,15 @@ public class ReservationController {
     }
 
     @GetMapping("/borrowedItems")
-    public Page<ExtendedReservationItemDto> getReservationsByClient(
+    public Page<ExtendedReservationItemDto> getReservations(
             @RequestParam(defaultValue = "0") int page) {
         return reservationFacade.getReservationItems(page);
     }
 
     @GetMapping("/borrowedItems/forClient")
     public Page<ExtendedReservationItemDto> getReservationsByClient(
-            @RequestParam String emailAddress,
-            @RequestParam(defaultValue = "0") int page) {
-        return reservationFacade.getReservationItemsByClient(page, emailAddress);
+            @RequestParam(defaultValue = "0") int page) throws IOException {
+        return reservationFacade.getReservationItemsByClient(page);
     }
 
     @GetMapping("/borrowedItems/overdue")

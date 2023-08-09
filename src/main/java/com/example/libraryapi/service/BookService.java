@@ -44,7 +44,6 @@ public class BookService {
                     @CacheEvict(value = "book_cache", allEntries = true),
                     @CacheEvict(value = "books_by_category_cache", allEntries = true),
                     @CacheEvict(value = "books_by_phrase_cache", allEntries = true),
-                    @CacheEvict(value = "books_by_greater_id_cache", allEntries = true),
             }
     )
     public void addBook(BookDto bookDto) {
@@ -62,7 +61,6 @@ public class BookService {
                     @CacheEvict(value = "book_cache", allEntries = true),
                     @CacheEvict(value = "books_by_category_cache", allEntries = true),
                     @CacheEvict(value = "books_by_phrase_cache", allEntries = true),
-                    @CacheEvict(value = "books_by_greater_id_cache", allEntries = true),
             }
     )
     @Transactional
@@ -99,10 +97,9 @@ public class BookService {
 
     public Page<BookDto> getRandomBooks(int page, int size, String sortBy) {
         long count = bookRepository.count();
-        return getByIdGreaterThanEqual((long) (Math.random() * count - 5), page, size, sortBy);
+        return getByIdGreaterThanEqual((long) (Math.random() * count - size), page, size, sortBy);
     }
 
-    @Cacheable(value = "books_by_greater_id_cache", key = "#id")
     public Page<BookDto> getByIdGreaterThanEqual(Long id, int page, int size, String sortBy) {
         Page<Book> pagedResult = bookRepository.findByIdGreaterThanEqual(id, PageRequest.of(page, size, Sort.by(sortBy)));
         return mapWithNumberOfAvailableBooks(pagedResult);

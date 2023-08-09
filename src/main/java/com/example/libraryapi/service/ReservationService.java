@@ -53,7 +53,6 @@ public class ReservationService {
                     @CacheEvict(value = "book_cache", allEntries = true),
                     @CacheEvict(value = "books_by_category_cache", allEntries = true),
                     @CacheEvict(value = "books_by_phrase_cache", allEntries = true),
-                    @CacheEvict(value = "books_by_greater_id_cache", allEntries = true),
                     @CacheEvict(value = "reservation_items_cache", allEntries = true),
                     @CacheEvict(value = "reservation_item_by_client_cache", allEntries = true),
             }
@@ -96,7 +95,6 @@ public class ReservationService {
                     @CacheEvict(value = "book_cache", allEntries = true),
                     @CacheEvict(value = "books_by_category_cache", allEntries = true),
                     @CacheEvict(value = "books_by_phrase_cache", allEntries = true),
-                    @CacheEvict(value = "books_by_greater_id_cache", allEntries = true),
                     @CacheEvict(value = "reservation_items_cache", allEntries = true),
                     @CacheEvict(value = "reservation_item_by_client_cache", allEntries = true),
             }
@@ -155,7 +153,6 @@ public class ReservationService {
                     @CacheEvict(value = "book_cache", allEntries = true),
                     @CacheEvict(value = "books_by_category_cache", allEntries = true),
                     @CacheEvict(value = "books_by_phrase_cache", allEntries = true),
-                    @CacheEvict(value = "books_by_greater_id_cache", allEntries = true),
                     @CacheEvict(value = "reservation_items_cache", allEntries = true),
                     @CacheEvict(value = "reservation_item_by_client_cache", allEntries = true),
             }

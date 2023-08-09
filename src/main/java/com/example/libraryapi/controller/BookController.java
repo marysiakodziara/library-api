@@ -51,7 +51,7 @@ public class BookController {
     public Page<BookDto> getBooksByCategory(
             @RequestParam List<GenreEnum> categories,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "25") int size,
             @RequestParam(defaultValue = "id") String sortBy
     ) {
         return inventoryFacade.getBooksByCategory(categories, page, size, sortBy);
@@ -61,7 +61,7 @@ public class BookController {
     public Page<BookDto> getBooksContainingPhrase(
             @RequestParam String phrase,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size,
+            @RequestParam(defaultValue = "25") int size,
             @RequestParam(defaultValue = "id") String sortBy
     ) {
         System.out.println("phrase = " + phrase);

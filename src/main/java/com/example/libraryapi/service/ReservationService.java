@@ -38,8 +38,6 @@ public class ReservationService {
         return reservationMapper.map(reservationRepository.findById(id).orElse(null));
     }
 
-
-
     public List<ReservationDto> getAllRecordsFromReservation() {
         return reservationRepository.findAll()
                 .stream()
@@ -47,16 +45,6 @@ public class ReservationService {
                 .toList();
     }
 
-    @Caching(
-            evict = {
-                    @CacheEvict(value = "books_cache", allEntries = true),
-                    @CacheEvict(value = "book_cache", allEntries = true),
-                    @CacheEvict(value = "books_by_category_cache", allEntries = true),
-                    @CacheEvict(value = "books_by_phrase_cache", allEntries = true),
-                    @CacheEvict(value = "reservation_items_cache", allEntries = true),
-                    @CacheEvict(value = "reservation_item_by_client_cache", allEntries = true),
-            }
-    )
     @Transactional
     public void addReservation(ReservationDto reservationDto, Client client) {
         boolean isBookAvailable = this.areBooksAvailable(reservationDto);
@@ -89,16 +77,6 @@ public class ReservationService {
 
     }
 
-    @Caching(
-            evict = {
-                    @CacheEvict(value = "books_cache", allEntries = true),
-                    @CacheEvict(value = "book_cache", allEntries = true),
-                    @CacheEvict(value = "books_by_category_cache", allEntries = true),
-                    @CacheEvict(value = "books_by_phrase_cache", allEntries = true),
-                    @CacheEvict(value = "reservation_items_cache", allEntries = true),
-                    @CacheEvict(value = "reservation_item_by_client_cache", allEntries = true),
-            }
-    )
     @Transactional
     public void cancelReservation(UUID reservationId, Client client) {
         Reservation reservation = reservationRepository.findById(reservationId).orElse(null);
@@ -112,14 +90,12 @@ public class ReservationService {
         }
     }
 
-    @Cacheable(value = "reservation_items_cache")
     public Page<ExtendedReservationItemDto> getReservationItems(int page) {
         Pageable paging = PageRequest.of(page, 500, Sort.by("reservation.reservationDate").descending());
         Page<ReservationItem> reservationItems = reservationItemRepository.findByReservation_BorrowedTrueAndReturnedFalse(paging);
         return this.mapToDto(reservationItems);
     }
 
-    @Cacheable(value = "reservation_items_by_client_cache", key = "#emailAddress")
     public Page<ExtendedReservationItemDto> getReservationItemsByClient(String emailAddress, int page) {
         Pageable paging = PageRequest.of(page, 500, Sort.by("reservation.reservationDate").descending());
         Page<ReservationItem> reservationItems = reservationItemRepository.findByReservation_Client_EmailAddressAndReservation_BorrowedTrueAndReturnedFalse(emailAddress, paging);
@@ -147,16 +123,6 @@ public class ReservationService {
         });
     }
 
-    @Caching(
-            evict = {
-                    @CacheEvict(value = "books_cache", allEntries = true),
-                    @CacheEvict(value = "book_cache", allEntries = true),
-                    @CacheEvict(value = "books_by_category_cache", allEntries = true),
-                    @CacheEvict(value = "books_by_phrase_cache", allEntries = true),
-                    @CacheEvict(value = "reservation_items_cache", allEntries = true),
-                    @CacheEvict(value = "reservation_item_by_client_cache", allEntries = true),
-            }
-    )
     public void returnBooks(Long reservationItemId) {
         if (reservationItemRepository.findById(reservationItemId).isPresent()) {
             ReservationItem reservationItem = reservationItemRepository.findById(reservationItemId).get();
@@ -165,12 +131,6 @@ public class ReservationService {
         }
     }
 
-    @Caching(
-            evict = {
-                    @CacheEvict(value = "reservation_items_cache", allEntries = true),
-                    @CacheEvict(value = "reservation_item_by_client_cache", allEntries = true),
-            }
-    )
     @Transactional
     public void confirmReservation(UUID id) {
         if (reservationRepository.findById(id).isPresent()) {

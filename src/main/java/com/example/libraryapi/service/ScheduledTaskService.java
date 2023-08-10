@@ -24,7 +24,6 @@ public class ScheduledTaskService {
                     @CacheEvict(value = "books_cache", allEntries = true),
                     @CacheEvict(value = "book_cache", allEntries = true),
                     @CacheEvict(value = "books_by_category_cache", allEntries = true),
-                    @CacheEvict(value = "books_by_phrase_cache", allEntries = true),
                     @CacheEvict(value = "reservation_items_cache", allEntries = true),
                     @CacheEvict(value = "reservation_item_by_client_cache", allEntries = true),
             }

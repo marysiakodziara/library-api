@@ -3,6 +3,9 @@ package com.example.libraryapi.facade;
 import com.example.libraryapi.dto.BookDto;
 import com.example.libraryapi.enums.GenreEnum;
 import com.example.libraryapi.enums.MainGenreEnum;
+import com.example.libraryapi.mapper.BookMapper;
+import com.example.libraryapi.model.Book;
+import com.example.libraryapi.model.ReservationItem;
 import com.example.libraryapi.service.BookService;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class InventoryFacade {
+public class BookFacade {
 
     private final BookService bookService;
 
@@ -43,7 +46,7 @@ public class InventoryFacade {
     }
 
     public Page<BookDto> getBooksByCategory(List<GenreEnum> categories, int page, int size, String sortBy) {
-        return bookService.getBooksByCategory(categories, page, size, sortBy);
+        return bookService.mapWithNumberOfAvailableBooks(bookService.getBooksByCategory(categories, page, size, sortBy));
     }
 
     public Page<BookDto> getBooksContainingPhrase(String phrase, int page, int size, String sortBy) {
@@ -51,7 +54,9 @@ public class InventoryFacade {
     }
 
     public BookDto getBookById(Long id) {
-        return bookService.getBookById(id);
+        Book book = bookService.getBookById(id);
+        int availableBooks = book.getNumberOfBooks() - (book.getReservationItems().stream().filter(item -> !item.isReturned()).map(ReservationItem::getQuantity).reduce(0, Integer::sum));
+        return BookMapper.INSTANCE.map(book, availableBooks);
     }
 
     public Page<BookDto> getRandomBooks(int page, int size, String sortBy) {
@@ -63,6 +68,6 @@ public class InventoryFacade {
     }
 
     public List<BookDto> getNewArrivals() {
-        return bookService.getNewArrivals();
+        return bookService.mapWithNumberOfAvailableBooks(bookService.getNewArrivals());
     }
 }

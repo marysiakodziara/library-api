@@ -3,7 +3,7 @@ package com.example.libraryapi.controller;
 import com.example.libraryapi.dto.BookDto;
 import com.example.libraryapi.enums.GenreEnum;
 import com.example.libraryapi.enums.MainGenreEnum;
-import com.example.libraryapi.facade.InventoryFacade;
+import com.example.libraryapi.facade.BookFacade;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/book")
 public class BookController {
 
-    private final InventoryFacade inventoryFacade;
+    private final BookFacade inventoryFacade;
 
     @PostMapping
     public void addBook(@RequestBody BookDto bookDto) {

@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,11 @@ public class Reservation {
     @Id
     @GeneratedValue(generator = "uuid")
     private UUID id;
+
+    @NotNull
     private LocalDate reservationDate;
+
+    @NotNull
     private LocalDate endOfReservation;
     private boolean borrowed;
     private boolean canceled;

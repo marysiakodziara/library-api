@@ -19,19 +19,9 @@ public class ScheduledTaskService {
     private final ReservationRepository reservationRepository;
     private final ReservationItemRepository reservationItemRepository;
 
-    @Caching(
-            evict = {
-                    @CacheEvict(value = "books_cache", allEntries = true),
-                    @CacheEvict(value = "book_cache", allEntries = true),
-                    @CacheEvict(value = "books_by_category_cache", allEntries = true),
-                    @CacheEvict(value = "reservation_items_cache", allEntries = true),
-                    @CacheEvict(value = "reservation_item_by_client_cache", allEntries = true),
-            }
-    )
     @Scheduled(cron = "${com.scheduled.cron}")
     public void deleteExpiredReservations() {
         LocalDate today = LocalDate.now();
-        System.out.println("Today: " + today);
         List<Reservation> expiredReservations = reservationRepository.findExpiredReservations(today);
         expiredReservations.forEach(this::deleteReservation);
     }

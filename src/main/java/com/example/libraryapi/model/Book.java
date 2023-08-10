@@ -3,6 +3,7 @@ package com.example.libraryapi.model;
 import com.example.libraryapi.enums.GenreEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,9 +25,13 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotNull
     private String title;
+    @NotNull
     private Long isbn;
+    @NotNull
     private String author;
+    @NotNull
     private int numberOfBooks;
 
     @ElementCollection

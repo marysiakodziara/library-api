@@ -19,13 +19,12 @@ public interface ClientMapper {
                     @Mapping(target="lastName", source="lastName"),
                     @Mapping(target="emailAddress", source="emailAddress"),
                     @Mapping(target="phoneNumber", source="phoneNumber"),
-                    @Mapping(target="address", source="address")
             }
     )
-    public Client map(ClientDto clientDto);
+    Client map(ClientDto clientDto);
 
     @InheritInverseConfiguration(name = "map")
-    public ClientDto map(Client client);
+    ClientDto map(Client client);
 
     @Mappings(
             {
@@ -33,7 +32,6 @@ public interface ClientMapper {
                     @Mapping(target="lastName", source="lastName"),
                     @Mapping(target="emailAddress", source="emailAddress"),
                     @Mapping(target="phoneNumber", source="phoneNumber"),
-                    @Mapping(target="address", source="address")
             }
     )
     void updateClient(ClientDto clientDto, @MappingTarget Client client);

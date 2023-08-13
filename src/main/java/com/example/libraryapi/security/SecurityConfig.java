@@ -21,23 +21,20 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        //TODO: add book post endpoint and client post endpoint
         http
             .cors(withDefaults())
             .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers(HttpMethod.GET, "/api/v1/client")
-            .authenticated()
-            .requestMatchers(HttpMethod.GET, "/api/v1/client/role")
-            .authenticated()
-            .requestMatchers( "/api/v1/reservation")
-            .authenticated()
-            .requestMatchers( "/api/v1/reservation/*")
-            .authenticated()
             .requestMatchers(HttpMethod.POST, "/api/v1/book")
             .authenticated()
             .requestMatchers(HttpMethod.PUT, "/api/v1/book/updateBook")
             .authenticated()
-            .requestMatchers("/api/v1/client/byEmail")
+            .requestMatchers("/api/v1/client")
+            .authenticated()
+            .requestMatchers("/api/v1/client/**")
+            .authenticated()
+            .requestMatchers("/api/v1/reservation")
+            .authenticated()
+            .requestMatchers("/api/v1/reservation/**")
             .authenticated()
             .anyRequest()
             .permitAll()

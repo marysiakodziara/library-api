@@ -1,8 +1,8 @@
 databaseChangeLog:
   - changeSet:
-      id: insert-book-table-sample-data-0
+      id: first-change-set
       author: Marysia Antoniak
-      comment: Insert sample data to book table
+      comment: insert for creating changelog node
       changes:
   - changeSet:
       id: insert-book-table-sample-data-1
@@ -11,19 +11,6 @@ databaseChangeLog:
       changes:
         - sql:
             sql: >
-              insert into book (title, author, isbn, number_of_books) values ('Romance', 'Walter Raleigh', '9783732671243', '14');
-              insert into book_categories (book_id, categories) select id, 'SCIENCE_FICTION' from book where isbn = '9783732671243';
-  - changeSet:
-      id: insert-book-table-sample-data-2
-      author: Marysia Antoniak
-      comment: Insert sample data to book table
-      changes:
-        - sql:
-            sql: >
-              insert into book (title, author, isbn, number_of_books) values   ('The Politics and Reception of Rabindranath Tagore''s Drama', 'Arnab Bhattacharya', '9781317619406', '7');
-              insert into book_categories (book_id, categories) select id, 'DRAMA' from book where isbn = '9781317619406';
-              insert into book (title, author, isbn, number_of_books) values   ('Story Drama in the Special Needs Classroom', 'Jessica Perich Carleton', '9780857004697', '12');
-              insert into book_categories (book_id, categories) select id, 'DRAMA' from book where isbn = '9780857004697';
               insert into book (title, author, isbn, number_of_books) values   ('How to write good drama story', 'Zafar Yab', '9789391173524', '10');
               insert into book_categories (book_id, categories) select id, 'DRAMA' from book where isbn = '9789391173524';
               insert into book (title, author, isbn, number_of_books) values   ('Putting Process Drama into Action', 'Pamela Bowell', '9781317511601', '9');
@@ -76,13 +63,6 @@ databaseChangeLog:
               insert into book_categories (book_id, categories) select id, 'DRAMA' from book where isbn = '9781408141335';
               insert into book (title, author, isbn, number_of_books) values   ('The Ambivalences of Medieval Religious Drama', 'Rainer Warning', '9780804737913', '6');
               insert into book_categories (book_id, categories) select id, 'DRAMA' from book where isbn = '9780804737913';
-  - changeSet:
-      id: insert-book-table-sample-data-3
-      author: Marysia Antoniak
-      comment: Insert sample data to book table
-      changes:
-        - sql:
-            sql: >
               insert into book (title, author, isbn, number_of_books) values   ('50 Short Science Fiction Tales', 'Isaac Asimov', '9780684842967', '5');
               insert into book_categories (book_id, categories) select id, 'SCIENCE_FICTION' from book where isbn = '9780684842967';
               insert into book (title, author, isbn, number_of_books) values   ('Modern Classics Science Fiction Omnibus', 'Brian Aldiss', '9780141188928', '8');
@@ -367,8 +347,6 @@ databaseChangeLog:
               insert into book_categories (book_id, categories) select id, 'SELF_HELP' from book where isbn = '9788372987082';
               insert into book (title, author, isbn, number_of_books) values   ('The Science of Getting Rich', 'W. D. Wattles', '9783749480289', '15');
               insert into book_categories (book_id, categories) select id, 'SELF_HELP' from book where isbn = '9783749480289';
-              insert into book (title, author, isbn, number_of_books) values   ('The Rough Guide to Laos', 'No Author', '9781409350385', '9');
-              insert into book_categories (book_id, categories) select id, 'GUIDE' from book where isbn = '9781409350385';
               insert into book (title, author, isbn, number_of_books) values   ('The International Student''s Guide to UK Education', 'Martin Hyde', '9781136735080', '8');
               insert into book_categories (book_id, categories) select id, 'GUIDE' from book where isbn = '9781136735080';
               insert into book (title, author, isbn, number_of_books) values   ('A Guide to Local Environmental Auditing', 'Hugh Barton', '9781134167746', '9');
@@ -601,8 +579,6 @@ databaseChangeLog:
               insert into book_categories (book_id, categories) select id, 'ANTHOLOGY' from book where isbn = '9781597079204';
               insert into book (title, author, isbn, number_of_books) values   ('Scholar''s Path, A: An Anthology Of Classical Chinese Poems And Prose Of Chen Qing Shan - A Pioneer Writer Of Malayan-singapore Literature', 'Chen Peter Min-liang', '9789814464390', '13');
               insert into book_categories (book_id, categories) select id, 'ANTHOLOGY' from book where isbn = '9789814464390';
-              insert into book (title, author, isbn, number_of_books) values   ('The Columbia Anthology of Modern Chinese Drama', 'Xiaomei Chen', '9780231535540', '9');
-              insert into book_categories (book_id, categories) select id, 'ANTHOLOGY' from book where isbn = '9780231535540';
               insert into book (title, author, isbn, number_of_books) values   ('Singer''s Musical Theatre Anthology Duets Volume 3', 'Hal Leonard Corp.', '9781480318939', '10');
               insert into book_categories (book_id, categories) select id, 'ANTHOLOGY' from book where isbn = '9781480318939';
               insert into book (title, author, isbn, number_of_books) values   ('Love, Loss, and Rememberance: A Poetry Anthology', 'Selma Wolkow', '9781312287433', '13');
@@ -677,8 +653,6 @@ databaseChangeLog:
               insert into book_categories (book_id, categories) select id, 'ENCYCLOPEDIAS' from book where isbn = '9781683056416';
               insert into book (title, author, isbn, number_of_books) values   ('Encyclopedia of Human Development', 'Neil J. Salkind', '9781452265391', '6');
               insert into book_categories (book_id, categories) select id, 'ENCYCLOPEDIAS' from book where isbn = '9781452265391';
-              insert into book (title, author, isbn, number_of_books) values   ('The Hutchinson Encyclopedia', 'No Author', '9781859862025', '14');
-              insert into book_categories (book_id, categories) select id, 'ENCYCLOPEDIAS' from book where isbn = '9781859862025';
               insert into book (title, author, isbn, number_of_books) values   ('Concise Encyclopedia of Applied Linguistics', 'Margie S. Berns', '9780080965024', '15');
               insert into book_categories (book_id, categories) select id, 'ENCYCLOPEDIAS' from book where isbn = '9780080965024';
               insert into book (title, author, isbn, number_of_books) values   ('My Very Important Earth Encyclopedia', 'DK', '9780744059731', '15');
@@ -843,8 +817,6 @@ databaseChangeLog:
               insert into book_categories (book_id, categories) select id, 'ART' from book where isbn = '9781629693149';
               insert into book (title, author, isbn, number_of_books) values   ('Art Facilitation for Special Needs Populations', 'Lisa Fields Clark', '9780615709406', '9');
               insert into book_categories (book_id, categories) select id, 'ART' from book where isbn = '9780615709406';
-              insert into book (title, author, isbn, number_of_books) values   ('Who''s who in American Art, 1973', 'No Author', '9780835206112', '13');
-              insert into book_categories (book_id, categories) select id, 'ART' from book where isbn = '9780835206112';
               insert into book (title, author, isbn, number_of_books) values   ('The Art Direction Handbook for Film & Television', 'Michael Rizzo', '9781317673705', '7');
               insert into book_categories (book_id, categories) select id, 'ART' from book where isbn = '9781317673705';
               insert into book (title, author, isbn, number_of_books) values   ('Colliding Worlds: How Cutting-Edge Science Is Redefining Contemporary Art', 'Arthur I. Miller', '9780393244250', '15');
@@ -947,8 +919,6 @@ databaseChangeLog:
               insert into book_categories (book_id, categories) select id, 'DIARIES' from book where isbn = '9780190623838';
               insert into book (title, author, isbn, number_of_books) values   ('The Diaries of Nikolay Punin', 'Nikolay Punin', '9780292787858', '15');
               insert into book_categories (book_id, categories) select id, 'DIARIES' from book where isbn = '9780292787858';
-              insert into book (title, author, isbn, number_of_books) values   ('Dangerous Diaries', 'No Author', '9781907163173', '10');
-              insert into book_categories (book_id, categories) select id, 'DIARIES' from book where isbn = '9781907163173';
               insert into book (title, author, isbn, number_of_books) values   ('Behaviour Diaries: An Assessment Tool for Supporting Children with Behavioural Difficulties', 'Sue Gott', '9781351698863', '8');
               insert into book_categories (book_id, categories) select id, 'DIARIES' from book where isbn = '9781351698863';
               insert into book (title, author, isbn, number_of_books) values   ('The Gladstone Diaries', 'W. E. Gladstone', '9780198213703', '15');
@@ -1023,12 +993,8 @@ databaseChangeLog:
               insert into book_categories (book_id, categories) select id, 'PRAYER_BOOKS' from book where isbn = '9780830841936';
               insert into book (title, author, isbn, number_of_books) values   ('50 Great Prayers from the Iona Community', 'Neil Paynter', '9781905010714', '9');
               insert into book_categories (book_id, categories) select id, 'PRAYER_BOOKS' from book where isbn = '9781905010714';
-              insert into book (title, author, isbn, number_of_books) values   ('The Glenstal Book of Prayer', 'No Author', '9781856073226', '12');
-              insert into book_categories (book_id, categories) select id, 'PRAYER_BOOKS' from book where isbn = '9781856073226';
               insert into book (title, author, isbn, number_of_books) values   ('YOUCAT Prayer Book', 'Georg von Lengerke', '9780977569960', '7');
               insert into book_categories (book_id, categories) select id, 'PRAYER_BOOKS' from book where isbn = '9780977569960';
-              insert into book (title, author, isbn, number_of_books) values   ('A Prayerbook of Favorite Litanies', 'No Author', '9781618905529', '12');
-              insert into book_categories (book_id, categories) select id, 'PRAYER_BOOKS' from book where isbn = '9781618905529';
               insert into book (title, author, isbn, number_of_books) values   ('A Student''s Guide to Infinite Series and Sequences', 'Bernhard W. Bach, Jr.', '9781107640481', '13');
               insert into book_categories (book_id, categories) select id, 'SERIES' from book where isbn = '9781107640481';
               insert into book (title, author, isbn, number_of_books) values   ('Fourier Series and Orthogonal Functions', 'Harry F. Davis', '9780486659732', '12');
@@ -1127,14 +1093,10 @@ databaseChangeLog:
               insert into book_categories (book_id, categories) select id, 'BIOGRAPHIES' from book where isbn = '9783375008055';
               insert into book (title, author, isbn, number_of_books) values   ('Reader''s Digest Great Biographies', 'Reader''s Digest', '9780895772961', '15');
               insert into book_categories (book_id, categories) select id, 'BIOGRAPHIES' from book where isbn = '9780895772961';
-              insert into book (title, author, isbn, number_of_books) values   ('Reminiscences of an Active Life', 'John Roy Lynch', '9781604731149', '12');
-              insert into book_categories (book_id, categories) select id, 'AUTOBIOGRAPHIES' from book where isbn = '9781604731149';
               insert into book (title, author, isbn, number_of_books) values   ('Consuming Autobiographies', 'Claire Boyle', '9781351195294', '9');
               insert into book_categories (book_id, categories) select id, 'AUTOBIOGRAPHIES' from book where isbn = '9781351195294';
               insert into book (title, author, isbn, number_of_books) values   ('Postcolonial Francophone Autobiographies', 'Edgard Sankara', '9780813931760', '12');
               insert into book_categories (book_id, categories) select id, 'AUTOBIOGRAPHIES' from book where isbn = '9780813931760';
-              insert into book (title, author, isbn, number_of_books) values   ('British Autobiographies', 'No Author', '9780520361249', '11');
-              insert into book_categories (book_id, categories) select id, 'AUTOBIOGRAPHIES' from book where isbn = '9780520361249';
               insert into book (title, author, isbn, number_of_books) values   ('Political Autobiographies and Memoirs in Antiquity', 'Gabriele Marasco', '9789004182998', '13');
               insert into book_categories (book_id, categories) select id, 'AUTOBIOGRAPHIES' from book where isbn = '9789004182998';
               insert into book (title, author, isbn, number_of_books) values   ('Women''s Autobiographies in Contemporary Iran', 'Afsaneh Najmabadi', '9780932885050', '5');
@@ -1143,8 +1105,6 @@ databaseChangeLog:
               insert into book_categories (book_id, categories) select id, 'AUTOBIOGRAPHIES' from book where isbn = '9781481784931';
               insert into book (title, author, isbn, number_of_books) values   ('The The Collected Works of W.B. Yeats Vol. III: Autobiographies', 'William Butler Yeats', '9781451603217', '11');
               insert into book_categories (book_id, categories) select id, 'AUTOBIOGRAPHIES' from book where isbn = '9781451603217';
-              insert into book (title, author, isbn, number_of_books) values   ('University Library of Autobiography', 'No Author', '9781330745991', '13');
-              insert into book_categories (book_id, categories) select id, 'AUTOBIOGRAPHIES' from book where isbn = '9781330745991';
               insert into book (title, author, isbn, number_of_books) values   ('Threads of Life', 'Richard Freadman', '9780226261423', '13');
               insert into book_categories (book_id, categories) select id, 'AUTOBIOGRAPHIES' from book where isbn = '9780226261423';
               insert into book (title, author, isbn, number_of_books) values   ('Factory Lives', 'James R. Simmons, Jr', '9781551112725', '12');
@@ -1153,8 +1113,6 @@ databaseChangeLog:
               insert into book_categories (book_id, categories) select id, 'AUTOBIOGRAPHIES' from book where isbn = '9780226731483';
               insert into book (title, author, isbn, number_of_books) values   ('Garry Sobers: My Autobiography', 'Garfield Sobers', '9781472227003', '8');
               insert into book_categories (book_id, categories) select id, 'AUTOBIOGRAPHIES' from book where isbn = '9781472227003';
-              insert into book (title, author, isbn, number_of_books) values   ('No Title', 'No Author', '9780199669240', '15');
-              insert into book_categories (book_id, categories) select id, 'AUTOBIOGRAPHIES' from book where isbn = '9780199669240';
               insert into book (title, author, isbn, number_of_books) values   ('Fictions in Autobiography', 'Paul John Eakin', '9781400854790', '13');
               insert into book_categories (book_id, categories) select id, 'AUTOBIOGRAPHIES' from book where isbn = '9781400854790';
               insert into book (title, author, isbn, number_of_books) values   ('The Cambridge Companion to Autobiography', 'Maria DiBattista', '9781107609181', '15');
@@ -1187,8 +1145,6 @@ databaseChangeLog:
               insert into book_categories (book_id, categories) select id, 'AUTOBIOGRAPHIES' from book where isbn = '9780791480984';
               insert into book (title, author, isbn, number_of_books) values   ('Final Fantasy XV', 'Grzegorz Misztal', '9785042743528', '7');
               insert into book_categories (book_id, categories) select id, 'FANTASY' from book where isbn = '9785042743528';
-              insert into book (title, author, isbn, number_of_books) values   ('Sci-Fi and Fantasy Stories from the Sun', 'Edward Page Mitchell', '9781539403401', '5');
-              insert into book_categories (book_id, categories) select id, 'FANTASY' from book where isbn = '9781539403401';
               insert into book (title, author, isbn, number_of_books) values   ('Warhammer Fantasy Role Play', 'Wydawnictwo Mag, Jacek Rodek', '9788386572007', '15');
               insert into book_categories (book_id, categories) select id, 'FANTASY' from book where isbn = '9788386572007';
               insert into book (title, author, isbn, number_of_books) values   ('Here Be Dragons', 'Stefan Ekman', '9780819573247', '14');
@@ -1247,8 +1203,6 @@ databaseChangeLog:
               insert into book_categories (book_id, categories) select id, 'BEST_SELLER' from book where isbn = '9781469135830';
               insert into book (title, author, isbn, number_of_books) values   ('The Making of a Bestseller', 'Arthur T. Vanderbilt', '9780786406630', '10');
               insert into book_categories (book_id, categories) select id, 'BEST_SELLER' from book where isbn = '9780786406630';
-              insert into book (title, author, isbn, number_of_books) values   ('The Making of a Christian Bestseller', 'No Author', '9781932902570', '12');
-              insert into book_categories (book_id, categories) select id, 'BEST_SELLER' from book where isbn = '9781932902570';
               insert into book (title, author, isbn, number_of_books) values   ('Writing the Bestseller II: Romance and Commercial Fiction', 'Lindsey Stover', '9781942240778', '14');
               insert into book_categories (book_id, categories) select id, 'BEST_SELLER' from book where isbn = '9781942240778';
               insert into book (title, author, isbn, number_of_books) values   ('10 Secrets to a Bestseller', 'Tim McConnehey', '9781642280036', '11');
@@ -1299,4 +1253,3 @@ databaseChangeLog:
               insert into book_categories (book_id, categories) select id, 'BEST_SELLER' from book where isbn = '9780983720256';
               insert into book (title, author, isbn, number_of_books) values   ('The Story of Our Secrets', 'Shari Low', '9781800487277', '13');
               insert into book_categories (book_id, categories) select id, 'BEST_SELLER' from book where isbn = '9781800487277';
-

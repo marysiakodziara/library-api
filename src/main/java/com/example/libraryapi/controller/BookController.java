@@ -28,7 +28,7 @@ public class BookController {
         inventoryFacade.addBook(bookDto);
     }
 
-    @PutMapping("updateBook")
+    @PutMapping("/updateBook")
     public void updateBook(@RequestBody BookDto bookDto) {
         inventoryFacade.updateBook(bookDto);
     }
@@ -36,7 +36,7 @@ public class BookController {
     @GetMapping
     public Page<BookDto> getAllBooks(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "25") int size,
+            @RequestParam(defaultValue = "24") int size,
             @RequestParam(defaultValue = "id") String sortBy
     ) {
         return inventoryFacade.getAllBooks(page, size, sortBy);
@@ -51,7 +51,7 @@ public class BookController {
     public Page<BookDto> getBooksByCategory(
             @RequestParam List<GenreEnum> categories,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "25") int size,
+            @RequestParam(defaultValue = "24") int size,
             @RequestParam(defaultValue = "id") String sortBy
     ) {
         return inventoryFacade.getBooksByCategory(categories, page, size, sortBy);
@@ -61,7 +61,7 @@ public class BookController {
     public Page<BookDto> getBooksContainingPhrase(
             @RequestParam String phrase,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "25") int size,
+            @RequestParam(defaultValue = "24") int size,
             @RequestParam(defaultValue = "id") String sortBy
     ) {
         System.out.println("phrase = " + phrase);

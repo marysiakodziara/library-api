@@ -1,5 +1,6 @@
 package com.example.libraryapi.repository;
 
+import com.example.libraryapi.mapper.ReservationItemMapper;
 import com.example.libraryapi.model.Reservation;
 import com.example.libraryapi.model.ReservationItem;
 import java.time.LocalDate;
@@ -11,7 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface ReservationRepository extends JpaRepository<Reservation, UUID> {
-    Page<Reservation> findByClient_EmailAddressAndBorrowed(String emailAddress, boolean borrowed, Pageable paging);
 
     List<Reservation> findByReservationItemsIn(List<ReservationItem> toList);
 
@@ -25,4 +25,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, UUID> 
                 AND r.borrowed = false
                 AND r.endOfReservation < ?1""")
     List<Reservation> findExpiredReservations(LocalDate today);
+
+    Page<Reservation> findByClient_EmailAddressAndBorrowedAndCanceledFalse(String emailAddress, boolean borrowed, Pageable paging);
 }

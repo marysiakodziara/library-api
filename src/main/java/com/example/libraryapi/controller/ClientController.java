@@ -30,7 +30,7 @@ public class ClientController {
     }
 
     @GetMapping("/byEmail")
-    public ClientDto getUserByEmail(@RequestParam String email) throws IOException {
+    public ClientDto getUserByEmail(@RequestParam String email) {
         return clientFacade.getClientDtoByEmail(email);
     }
 

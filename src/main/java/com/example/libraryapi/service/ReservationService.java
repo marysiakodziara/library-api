@@ -72,7 +72,7 @@ public class ReservationService {
 
     public Page<ReservationDto> getReservationsByUserEmail(String emailAddress, boolean borrowed, int page, int size, String sortBy) {
         Pageable paging = PageRequest.of(page, size, Sort.by(sortBy));
-        return reservationRepository.findByClient_EmailAddressAndBorrowed(emailAddress, borrowed, paging)
+        return reservationRepository.findByClient_EmailAddressAndBorrowedAndCanceledFalse(emailAddress, borrowed, paging)
                 .map(reservationMapper::map);
 
     }

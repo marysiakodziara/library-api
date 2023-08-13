@@ -40,6 +40,7 @@ dependencies {
     implementation 'org.springframework.security:spring-security-oauth2-jose'
     implementation 'com.squareup.okhttp:okhttp:2.7.5'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.liquibase:liquibase-core'
 }
 
 tasks.named('test') {

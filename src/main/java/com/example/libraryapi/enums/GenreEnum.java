@@ -6,67 +6,65 @@ import java.util.List;
 public enum GenreEnum {
 
     @JsonProperty("SCIENCE_FICTION")
-    SCIENCE_FICTION(MainGenreEnum.FIRST),
+    SCIENCE_FICTION(MainGenreEnum.FICTION),
     @JsonProperty("SATIRE")
-    SATIRE(MainGenreEnum.SECOND),
+    SATIRE(MainGenreEnum.NON_FICTION),
     @JsonProperty("DRAMA")
-    DRAMA(MainGenreEnum.THIRD),
+    DRAMA(MainGenreEnum.POETRY),
     @JsonProperty("ACTION_AND_ADVENTURE")
-    ACTION_AND_ADVENTURE(MainGenreEnum.FOURTH),
+    ACTION_AND_ADVENTURE(MainGenreEnum.DRAMA),
     @JsonProperty("ROMANCE")
-    ROMANCE(MainGenreEnum.FIFTH),
+    ROMANCE(MainGenreEnum.MYSTERY),
     @JsonProperty("MYSTERY")
-    MYSTERY(MainGenreEnum.SIXTH),
+    MYSTERY(MainGenreEnum.ROMANCE),
     @JsonProperty("HORROR")
-    HORROR(MainGenreEnum.SEVENTH),
+    HORROR(MainGenreEnum.FANTASY),
     @JsonProperty("SELF_HELP")
-    SELF_HELP(MainGenreEnum.EIGHT),
+    SELF_HELP(MainGenreEnum.SCIENCE),
     @JsonProperty("GUIDE")
-    GUIDE(MainGenreEnum.NINTH),
+    GUIDE(MainGenreEnum.HISTORY),
     @JsonProperty("TRAVEL")
-    TRAVEL(MainGenreEnum.TENTH),
+    TRAVEL(MainGenreEnum.NON_FICTION),
     @JsonProperty("CHILDREN")
-    CHILDREN(MainGenreEnum.FIRST),
+    CHILDREN(MainGenreEnum.FICTION),
     @JsonProperty("RELIGION_SPIRITUALITY_AND_NEW_AGE")
-    RELIGION_SPIRITUALITY_AND_NEW_AGE(MainGenreEnum.SECOND),
-    @JsonProperty("SCIENCE")
-    SCIENCE(MainGenreEnum.THIRD),
+    RELIGION_SPIRITUALITY_AND_NEW_AGE(MainGenreEnum.NON_FICTION),
     @JsonProperty("HISTORY")
-    HISTORY(MainGenreEnum.FOURTH),
+    HISTORY(MainGenreEnum.HISTORY),
     @JsonProperty("MATH")
-    MATH(MainGenreEnum.FIFTH),
+    MATH(MainGenreEnum.SCIENCE),
     @JsonProperty("ANTHOLOGY")
-    ANTHOLOGY(MainGenreEnum.SIXTH),
+    ANTHOLOGY(MainGenreEnum.ROMANCE),
     @JsonProperty("POETRY")
-    POETRY(MainGenreEnum.SEVENTH),
+    POETRY(MainGenreEnum.POETRY),
     @JsonProperty("ENCYCLOPEDIAS")
-    ENCYCLOPEDIAS(MainGenreEnum.EIGHT),
+    ENCYCLOPEDIAS(MainGenreEnum.NON_FICTION),
     @JsonProperty("DICTIONARIES")
-    DICTIONARIES(MainGenreEnum.NINTH),
+    DICTIONARIES(MainGenreEnum.NON_FICTION),
     @JsonProperty("COMICS")
-    COMICS(MainGenreEnum.TENTH),
+    COMICS(MainGenreEnum.FICTION),
     @JsonProperty("ART")
-    ART(MainGenreEnum.FIRST),
+    ART(MainGenreEnum.HISTORY),
     @JsonProperty("COOKBOOKS")
-    COOKBOOKS(MainGenreEnum.SECOND),
+    COOKBOOKS(MainGenreEnum.NON_FICTION),
     @JsonProperty("DIARIES")
-    DIARIES(MainGenreEnum.THIRD),
+    DIARIES(MainGenreEnum.BIOGRAPHY),
     @JsonProperty("JOURNALS")
-    JOURNALS(MainGenreEnum.FOURTH),
+    JOURNALS(MainGenreEnum.BIOGRAPHY),
     @JsonProperty("PRAYER_BOOKS")
-    PRAYER_BOOKS(MainGenreEnum.FIFTH),
+    PRAYER_BOOKS(MainGenreEnum.NON_FICTION),
     @JsonProperty("SERIES")
-    SERIES(MainGenreEnum.SIXTH),
+    SERIES(MainGenreEnum.DRAMA),
     @JsonProperty("TRILOGY")
-    TRILOGY(MainGenreEnum.SEVENTH),
+    TRILOGY(MainGenreEnum.MYSTERY),
     @JsonProperty("BIOGRAPHIES")
-    BIOGRAPHIES(MainGenreEnum.EIGHT),
+    BIOGRAPHIES(MainGenreEnum.BIOGRAPHY),
     @JsonProperty("AUTOBIOGRAPHIES")
-    AUTOBIOGRAPHIES(MainGenreEnum.NINTH),
+    AUTOBIOGRAPHIES(MainGenreEnum.BIOGRAPHY),
     @JsonProperty("FANTASY")
-    FANTASY(MainGenreEnum.TENTH),
+    FANTASY(MainGenreEnum.FANTASY),
     @JsonProperty("BEST_SELLER")
-    BEST_SELLER(MainGenreEnum.FIRST);
+    BEST_SELLER(MainGenreEnum.FICTION);
 
     final MainGenreEnum mainGenreEnum;
 

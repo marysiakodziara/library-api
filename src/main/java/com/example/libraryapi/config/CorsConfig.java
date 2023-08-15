@@ -9,7 +9,7 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/v1/**")
-                .allowedOrigins("http://localhost:3000", "https://library-login.us.auth0.com/")
+                .allowedOrigins("http://localhost:3000", "https://library-login.us.auth0.com/", "https://library-ui.onrender.com/")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*")
                 .exposedHeaders("content-type", "authorization")

@@ -3,8 +3,8 @@ This application serves as the secure and scalable backend for an electronic lib
 It allows both administrators and patrons to perform essential functions through a RESTful API.
 
 ## Table of Contents
-- [Overwiew](https://github.com/marysiakodziara/library-api/readme###Overview)
-- [Features](https://github.com/marysiakodziara/library-api/readme###Features)
+- [Overwiew](https://github.com/marysiakodziara/library-api#Overview)
+- [Features](https://github.com/marysiakodziara/library-api#Features)
 - [Business Logic](#Business-Logic)
 - [Conclusion](#Conclusion)
 

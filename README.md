@@ -1,46 +1,63 @@
-# E-Library Backend
-This application serves as the secure and scalable backend for an electronic library management system used by Our Town Library. 
-It allows both administrators and patrons to perform essential functions through a RESTful API.
-
-## Table of Contents
-- [Overwiew](https://github.com/marysiakodziara/library-api#Overview)
-- [Features](https://github.com/marysiakodziara/library-api#Features)
-- [Business Logic](#Business-Logic)
-- [Conclusion](#Conclusion)
-
-### Overview
-Our Town Library sought to modernize its systems while maintaining the high level of service patrons have come to expect. 
+# E-Library | backend
+This application serves as the secure and scalable backend for an library management system. 
 The goal of the E-Library project was to digitize core operations and resources into an easy to use web application for both staff and clients. 
 The backend focuses on centralizing the management of books, users and transactions.
 
-### Features
-Library Administration
-  * Administrators can efficiently manage the library's collection through the API. It provides functionality to add and update book metadata in bulk. 
-  * User accounts and permissions can also be centrally managed. Borrowing histories, return checking, reservation confirmation and overdue notifications 
-streamline typical daily tasks.
+## Table of Contents
+- [Features](#features)
+- [Technological Description](#technological-description)
+- [Deployment](#deployment)
 
-### Patron Access
-Registered patrons benefit from convenient digital access to library resources anytime, anywhere. Features like making reservations, checking current 
-loans and upcoming availability allow our patrons to continue utilizing the library remotely. Online borrowing also reduces physical contact amidst 
-public health concerns.
+## Features <a name="features"/>
+ * Library Administration 
+   > Administrators can efficiently manage the library's resources with functionalities like:
+   - add new clients
+   - add and update books
+   - borrow books and confirm the returns
+   - check the history of borrowed and reservved books
+   - confirm the reservations made by clients
+     
+ * Library Client 
+   > Clients can easily perform operations like:
+     - check library resources
+     - make and cancel reservations
+     - check the history of reserved and borrowed books 
+     - check new clubs and activities offered by library
 
-### Technical Implementation
-Our Town Library selected a robust and scalable technical stack to power the E-Library backend services:
+## Technological description <a name="technological-description"/>
 
-### Data Persistence
-A PostgreSQL database securely stores critical book, user and transaction data. Its reliability and features ensure the library's digital assets 
-and patron privacy are well protected.
+ ### Language and Framework 
+   * Backend is written with Java 17 with modules:
+      - Spring Boot
+      - Spring Actuator
+      - Spring Security
+      - Spring MVC
+      - Spring Data JPA
 
-### Performance
-Frequently accessed metadata and queries are cached using Caffeine to optimize response times for a better user experience.
+ ### Security
+  > Security is managed through the integration of:
+  - Auth0
+  - JWT (JSON Web Tokens)
 
-### Adaptability
-Liquibase automates database changes and initial book catalog loading, avoiding disruptions from migrations over time.
+ ### Automation
+   > The task efficiently identifies and cancels expired reservations while marking associated items as returned, ensuring streamlined data management and operational efficiency.
+   - Utilized with __`@Scheduled`__ 
 
-### Automation
-Time-based cleanup of expired reservations runs through scheduled cron jobs, maintaining data integrity without manual oversight.
+ ### Caching
+   > __`Caffeine's`__ integration of in-memory caching empowers the project with rapid responses, reducing data duplication, and propelling application performance.
 
-### Documentation
-Swagger integration generates interactive API documentation for easy third-party integrations like a mobile app.
+ ### Database and Data Versioning
+   - PostgreSQL
+   - Liquibase : used for populating database with sample data
 
-By leveraging these technologies, Our Town Library gained a future-proof digital foundation to continue its mission of serving the community for years to come.
+ ### Other libraries and tools in the project:
+   - Mapstruct
+   - Lombok
+   - Hibernate
+   - Swagger
+   - OkHttps
+   - Docker
+
+ ## Deployment <a name="deployment"/>
+   * Service is run in container from project's Dockerfile on Render platform. 
+   * Database is run as separate instance on the same platform.
